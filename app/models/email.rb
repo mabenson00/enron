@@ -9,6 +9,16 @@
 #  updated_at :datetime         not null
 #
 class Email < ApplicationRecord
-    has_many :senders
-    has_many :recipients
+    has_many :sender_user_emails
+    has_many :recipient_user_emails
+    has_many :senders, through: :sender_user_emails, source: :user
+    has_many :recipients, through: :sender_user_emails, source: :user
+
+    def sender 
+      senders.last
+    end
+
+    def recipient 
+      recipients.last
+    end
 end

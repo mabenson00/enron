@@ -8,6 +8,12 @@
 #  updated_at :datetime         not null
 #
 class User < ApplicationRecord
-    has_many :comments, -> { joins(:recipient, :sender) }, class_name: 'Comment'
-    has_many :emails, through: :comments
+    has_many :recipient_user_emails
+    has_many :sender_user_emails
+    has_many :sent_emails, through: :sender_user_emails, source: :email
+    has_many :received_emails, through: :recipient_user_emails, source: :email
+
+    def emails 
+        sent_emails + received_emails
+    end
 end

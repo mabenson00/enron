@@ -22,22 +22,22 @@ ActiveRecord::Schema.define(version: 2020_03_17_135124) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "recipients", force: :cascade do |t|
+  create_table "recipient_user_emails", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "email_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["email_id"], name: "index_recipients_on_email_id"
-    t.index ["user_id"], name: "index_recipients_on_user_id"
+    t.index ["email_id"], name: "index_recipient_user_emails_on_email_id"
+    t.index ["user_id"], name: "index_recipient_user_emails_on_user_id"
   end
 
-  create_table "senders", force: :cascade do |t|
+  create_table "sender_user_emails", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "email_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["email_id"], name: "index_senders_on_email_id"
-    t.index ["user_id"], name: "index_senders_on_user_id"
+    t.index ["email_id"], name: "index_sender_user_emails_on_email_id"
+    t.index ["user_id"], name: "index_sender_user_emails_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -46,8 +46,8 @@ ActiveRecord::Schema.define(version: 2020_03_17_135124) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "recipients", "emails"
-  add_foreign_key "recipients", "users"
-  add_foreign_key "senders", "emails"
-  add_foreign_key "senders", "users"
+  add_foreign_key "recipient_user_emails", "emails"
+  add_foreign_key "recipient_user_emails", "users"
+  add_foreign_key "sender_user_emails", "emails"
+  add_foreign_key "sender_user_emails", "users"
 end
