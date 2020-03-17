@@ -1,11 +1,14 @@
 class ParsingService    
     def initialize(decoded_email, email_record = nil)
-				@decoded_email = decoded_email
+                @decoded_email = decoded_email
+                @logger ||= Logger.new("#{Rails.root}/log/parse_emails.log")
     end
 
 	def create_email
         @email_record =	Email.create!(subject: @decoded_email.subject, body: @decoded_email.decoded.squish)	
-        puts "email successfully created with subject #{@email_record.subject}"
+        @logger.info("email successfully created with subject #{@email_record.subject}")
+
+        @email_record
     end
 
     def attach_users
@@ -33,18 +36,23 @@ class ParsingService
 
     def get_sender(sender_email)
         sender = User.find_by(email: sender_email)
+        @logger.info("user found with email #{sender&.email || 'not found'}")
         return sender if sender
 
-        puts "user successfully created with email #{sender.email}"
         sender = create_user(sender_email)
+        @logger.info("user successfully created with email #{sender.email}")
+
+        sender
     end
 
     def get_recipient(recipient_email)
         recipient = User.find_by(email: recipient_email)
+        @logger.info("user found with email #{recipient&.email || 'not found'}")
         return recipient if recipient
 
-        puts "user successfully created with email #{recipient.email}"
         recipient = create_user(recipient_email)
+        @logger.info("user successfully created with email #{recipient.email}")
+        recipient
     end
 
     def create_user(email)

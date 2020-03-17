@@ -13,6 +13,7 @@ class Email < ApplicationRecord
     has_many :recipient_user_emails
     has_many :senders, through: :sender_user_emails, source: :user
     has_many :recipients, through: :sender_user_emails, source: :user
+    has_and_belongs_to_many :searches
 
     def sender 
       senders.last
