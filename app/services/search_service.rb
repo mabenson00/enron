@@ -22,8 +22,8 @@ class SearchService
 
   def find_similars
     similars = Search.where("word LIKE :prefix", prefix: "#{@word}%")
-    similars = similars&.map{|s| s.emails.compact}
     @logger.info("found similars for #{@word}: #{similars&.map(&:word)}")
+    similars = similars&.map{|s| s.emails.compact}
   end
 
   def find_new

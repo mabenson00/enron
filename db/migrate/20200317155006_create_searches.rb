@@ -10,5 +10,7 @@ class CreateSearches < ActiveRecord::Migration[5.2]
       t.belongs_to :email
       t.belongs_to :search
     end
+
+    add_index :searches, :word, unique: true
   end
 end
