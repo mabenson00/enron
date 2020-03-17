@@ -6,7 +6,7 @@ Most of the code is in `app/services`. I used a scaffold generator, but none of 
 
 **Initial Setup. NOTE: this might take a minute**
 
- 1.  `rake db:create && rake db:migrate && rake parse_emails:parse`
+ 1.  Make sure Rails/Ruby are installed and `rake db:create && rake db:migrate && rake parse_emails:parse`
  2. NOTE: this was created on a PC, but... should work on mac I think.
 
 **Emails and Users** 
